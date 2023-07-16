@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'UserAuthApp.apps.UserauthappConfig',
     'SpreadsheetApp.apps.SpreadsheetappConfig',
     'django.contrib.admin',
     'django.contrib.auth',
