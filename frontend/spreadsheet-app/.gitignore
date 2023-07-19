@@ -1,23 +1,4 @@
-*.pyc
-__pycache__/
-myvenv/
-myenv/
-env/
-db.sqlite3
-.vscode/
-.idea/
-.vs/
-*.swp
-*.log
-
-
-.env
-
-node_modules/
-dist/
-build/
-################################
-
+# See http://help.github.com/ignore-files/ for more about ignoring files.
 
 # Compiled output
 /dist

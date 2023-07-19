@@ -45,6 +45,25 @@ INSTALLED_APPS = [
 
 CORS_ORIGIN_ALLOW_ALL = True
 
+# CORS_ALLOWED_ORIGINS = [
+#     'http://localhost:4200',  #  tutaj adresy URL  aplikacji Angular
+# ]
+
+# CORS_ALLOW_METHODS = [
+#     'GET',
+#     'POST',
+#     'PUT',
+#     'PATCH',
+#     'DELETE',
+#     'OPTIONS',
+# ]
+
+# # niestandardowe nagłowki dodać tutaj
+# CORS_ALLOW_HEADERS = [
+#     'Authorization',
+#     'Content-Type',
+# ]
+
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
