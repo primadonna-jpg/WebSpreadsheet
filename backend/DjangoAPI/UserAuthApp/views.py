@@ -45,9 +45,9 @@ class LoginView(APIView):
 
             if user is not None:
                 login(request, user)
-                return Response({'message': 'Zalogowano pomyślnie'}, status=status.HTTP_200_OK)
+                return Response({'message': 'successfully logged in'}, status=status.HTTP_200_OK)
             else:
-                return Response({'error': 'Niepoprawne dane logowania'}, status=status.HTTP_401_UNAUTHORIZED)
+                return Response({'error': 'wrong login details'}, status=status.HTTP_401_UNAUTHORIZED)
         
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
@@ -55,7 +55,7 @@ class LoginView(APIView):
 class LogOutView(APIView):
     def post(self, request):
         logout(request)
-        return Response({'message': 'Wylogowano pomyślnie'}, status=status.HTTP_200_OK)
+        return Response({'message': 'successfully logged out'}, status=status.HTTP_200_OK)
 
 
 
