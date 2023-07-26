@@ -13,4 +13,9 @@ export class SharedService {
     const data = {username, password};
     return this.http.post<any>(this.APIUrl + '/auth/login/',data);
   }
+
+  createUser(username:string, password:string, email:string):Observable<any>{
+    const data = {username, password, email};
+    return this.http.post<any>(this.APIUrl+'/auth/register/', data);
+  }
 }

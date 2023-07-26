@@ -27,3 +27,17 @@
     background-color:inherit;
   }
 
+
+
+  .feedback{
+  
+    text-align: center;
+  }
+  .succes{
+    color: greenyellow ;
+  
+  }
+  .error{
+    color: red;
+  }
+  

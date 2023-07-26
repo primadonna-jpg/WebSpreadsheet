@@ -25,7 +25,7 @@ export class LoginComponent implements OnInit {
   
   login(){
     if(this.form.invalid){
-      this._error = 'All fields must be filled'
+      this._error = 'All fields must be filled';
       this._response = null;
       return;
     }
@@ -34,11 +34,11 @@ export class LoginComponent implements OnInit {
       response => {
         // odpowiednie akcje (np. przekierowanie do innej strony).
         this._error = null;
-        this._response =response.message;   //zawartość response.message z DjangoApi
+        this._response =Object.values(response)[0];   
         console.log('Zalogowano pomyślnie', response.message);
       },
       error => {
-        this._error = error.error.error;  //  zawartość error z DjangoApi
+        this._error = Object.values(error.error)[0];  //  zawartość error z DjangoApi
         this._response = null;
         console.error('Błąd logowania:', error.error);
       }
