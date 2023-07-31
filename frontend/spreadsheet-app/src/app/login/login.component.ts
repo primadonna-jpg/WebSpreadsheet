@@ -37,16 +37,15 @@ export class LoginComponent implements OnInit {
       response => {
         //POWIADOMIENIE
         this._error = null;
-<<<<<<< Updated upstream
+
         this._response =Object.values(response)[0];   
-=======
-<<<<<<< Updated upstream
+
+
         this._response =response.message;   //zawartość response.message z DjangoApi
-=======
+
         this._response =Object.values(response)[0]; 
         this.service.setMessage(this._response); //wstrzyknięcie response do shared.service
->>>>>>> Stashed changes
->>>>>>> Stashed changes
+
         console.log('Zalogowano pomyślnie', response.message);
         //OBSŁUGA SESJI
         this.service.setLoggedIn(true); 

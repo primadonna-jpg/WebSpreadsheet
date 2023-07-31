@@ -11,9 +11,9 @@ export class SharedService {
     this.setLoggedIn(this.checkLoginStatus());
    }
   readonly APIUrl = 'http://127.0.0.1:8000';
-//
-//LOGOWANIE, SESJA
-//
+  //
+  //LOGOWANIE, SESJA
+  //
   private isLoggedInSubject:BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   isLoggedIn$ = this.isLoggedInSubject.asObservable();
   setLoggedIn(value:boolean){
@@ -30,28 +30,27 @@ export class SharedService {
     const data = {username, password};
     return this.http.post<any>(this.APIUrl + '/auth/login/',data);
   }
-<<<<<<< Updated upstream
 
-=======
-<<<<<<< Updated upstream
-=======
->>>>>>> Stashed changes
+
+
+
+
   createUser(username:string, password:string, email:string):Observable<any>{
     const data = {username, password, email};
     return this.http.post<any>(this.APIUrl+'/auth/register/', data);
   }
-<<<<<<< Updated upstream
-=======
+
+
   
   logOutUser():Observable<any>{
     this.setLoggedIn(false);
     document.cookie = 'isLoggedIn=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
     return this.http.post<any>(this.APIUrl + '/auth/logout/',{});
   }
-//
-//ALERT MESSEGES BETWEEN COMPONENTS
-// 
-_message:any;
+  //
+  //ALERT MESSEGES BETWEEN COMPONENTS
+  // 
+  _message:any;
   setMessage(respone:any){
     this._message = respone;
   }
@@ -61,6 +60,4 @@ _message:any;
   clearMessage(){
     this._message = null;
   }
->>>>>>> Stashed changes
->>>>>>> Stashed changes
 }
