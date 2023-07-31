@@ -1,1 +1,45 @@
 /* You can add global styles to this file, and also import other style files */
+
+/* Login && Register */
+.card {
+    max-width: 400px; 
+    margin: 0 auto; 
+    padding: 20px; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+    border-radius: 8px; 
+    color:#17A15E;
+    
+  }
+  
+  .card-body{
+    
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px ;
+  }
+  
+  
+  .btn {
+    margin-top: 10px; 
+    background-color: #17A15E;
+    color:white;
+    
+  }
+  .btn-link{
+    color:#0cf2db;
+    background-color:inherit;
+  }
+  
+  
+  
+  .feedback{
+  
+    text-align: center;
+  }
+  .succes{
+    color: greenyellow ;
+  
+  }
+  .error{
+    color: red;
+  }
+  

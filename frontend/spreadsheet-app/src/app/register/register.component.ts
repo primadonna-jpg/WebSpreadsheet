@@ -13,6 +13,11 @@ export class RegisterComponent implements OnInit {
   _error:any;
   _passwordError:any;
 
+<<<<<<< Updated upstream
+=======
+<<<<<<< Updated upstream
+=======
+>>>>>>> Stashed changes
   ngOnInit(): void {
       this.form= this.formBuilder.group({
       username:["", Validators.required],
@@ -31,6 +36,10 @@ export class RegisterComponent implements OnInit {
       response => {
         this._error = null;
         this._response = Object.values(response)[0];
+<<<<<<< Updated upstream
+=======
+        this.service._message = this._response;
+>>>>>>> Stashed changes
         console.log('Utworozno', response.message);
       },
       error =>{
@@ -42,4 +51,8 @@ export class RegisterComponent implements OnInit {
     )
   }
   
+<<<<<<< Updated upstream
+=======
+>>>>>>> Stashed changes
+>>>>>>> Stashed changes
 }

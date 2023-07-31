@@ -7,8 +7,28 @@
 <!-- * * * * * * * to get started with your project! * * * * * * * * -->
 <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
 
+<nav class="navbar navbar-light bg-light justify-content-between">
+  <form class="form-inline">
+    <!-- Elementy stałe -->
+  
+    <ng-container *ngIf="getIsLoggedIn(); else notLoggedIn">
+      <!-- Elementy do pokazania, gdy użytkownik jest zalogowany -->
+      
+      <button class="btn btn-outline-success my-2 my-sm-0" (click)="logout()">Wyloguj</button>
+    </ng-container>
+  
+    <ng-template #notLoggedIn>
+      <!-- Elementy do pokazania, gdy użytkownik NIE jest zalogowany -->
+      <button class="btn btn-outline-success my-2 my-sm-0" routerLink="/login">Logowanie</button>
+      
+    </ng-template>
+
+  </form>
+  </nav>
+  
 
 
+<app-alert></app-alert>
+<router-outlet>
 
-
-<router-outlet></router-outlet>
+</router-outlet>

@@ -1,0 +1,53 @@
+[33mcommit 249f86ccc9b456216eca24a1f27672db798bad9f[m[33m ([m[1;36mHEAD -> [m[1;32mfeature/authtentication[m[33m)[m
+Author: Bartlomiej Geilke (Nokia) <bartlomiej.geilke@nokia.com>
+Date:   Mon Jul 31 14:53:49 2023 +0200
+
+    Alert component
+
+[33mcommit c6392790880f00f938d13129cef1b05309de046b[m
+Author: Bartlomiej Geilke (Nokia) <bartlomiej.geilke@nokia.com>
+Date:   Mon Jul 31 14:30:06 2023 +0200
+
+    LogOut view
+
+[33mcommit b2dde736378deaa6a162c43ee62e32dee189081d[m[33m ([m[1;31morigin/feature/register[m[33m, [m[1;32mfeature/register[m[33m, [m[1;32mdevelop[m[33m)[m
+Author: Bartlomiej Geilke (Nokia) <bartlomiej.geilke@nokia.com>
+Date:   Wed Jul 26 09:41:21 2023 +0200
+
+    Register panel - succses feedback if loged in, error feedback if sm wrong with credentials
+
+[33mcommit b32a28e10c7ecc2442fad9fc0a042833b773247e[m[33m ([m[1;31morigin/feature/login[m[33m, [m[1;32mfeature/login[m[33m)[m
+Author: Bartlomiej Geilke (Nokia) <bartlomiej.geilke@nokia.com>
+Date:   Mon Jul 24 16:12:18 2023 +0200
+
+    Login panel - error if user doesn't exist and response if logged in succesfuly
+
+[33mcommit 13a3d0e1dbacd715fed4c74ffff6a30ef58426f4[m
+Author: Bartlomiej Geilke (Nokia) <bartlomiej.geilke@nokia.com>
+Date:   Thu Jul 20 15:45:37 2023 +0200
+
+    Added LoginView,LogOutView backend - Added login panel,regiser panel
+
+[33mcommit 6b255cc0b9f12fa20684116637ada20128b5f600[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mmain[m[33m)[m
+Author: Bartlomiej Geilke (Nokia) <bartlomiej.geilke@nokia.com>
+Date:   Wed Jul 19 12:07:18 2023 +0200
+
+    current
+
+[33mcommit 3d7f0e57d31edd99fb22642c8142e4c28ede6042[m
+Author: Bartlomiej Geilke (Nokia) <bartlomiej.geilke@nokia.com>
+Date:   Sun Jul 16 15:46:34 2023 +0200
+
+    CRUD User
+
+[33mcommit c880c2d6edcf7d2287b1eea9843185af49e6bf2c[m
+Author: Bartlomiej Geilke (Nokia) <bartlomiej.geilke@nokia.com>
+Date:   Wed Jul 12 16:06:28 2023 +0200
+
+    Created Django project and blank app(no models)
+
+[33mcommit f9bf46c1d54993cfc50d71f9cd4c451f8d3015c0[m
+Author: Bartłomiej.G <bartek.spok@gmail.com>
+Date:   Wed Jul 12 09:53:16 2023 +0000
+
+    Initial commit
