@@ -11,7 +11,7 @@ from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication
 from rest_framework.response import Response  #rest_framework defoultowo ma ustawiony response na json
 from rest_framework.views import APIView
-
+from rest_framework_simplejwt.tokens import RefreshToken
 
 
 #Błąd(Użytkownicy wprowadzeni z poziomu widoków nie są wstanie być zalogowani)/rozwiązanie:zamiast - 
@@ -53,8 +53,10 @@ class LoginView(APIView):
 
 #LOGOUT
 class LogOutView(APIView):
+    permission_classes = [IsAuthenticated]
     def post(self, request):
         logout(request)
+        
         return Response({'message': 'successfully logged out'}, status=status.HTTP_200_OK)
 
 
