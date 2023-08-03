@@ -20,5 +20,6 @@ from django.urls import path
 from django.urls import include
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('auth/', include('UserAuthApp.urls'))
+    path('auth/', include('UserAuthApp.urls')),
+    path('spreadsheet/',include('SpreadsheetApp.urls'))
 ]
