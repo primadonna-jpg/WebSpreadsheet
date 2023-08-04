@@ -30,8 +30,7 @@ export class RegisterComponent implements OnInit {
     this.service.createUser(formData.username, formData.password, formData.email).subscribe(
       response => {
         this._error = null;
-        this._response = Object.values(response)[0];
-
+        this._response = response.message;
 
         this.service._message = this._response
         console.log('Utworozno', response.message);
@@ -46,4 +45,5 @@ export class RegisterComponent implements OnInit {
   }
   
 
+  
 }

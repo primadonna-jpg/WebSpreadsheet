@@ -18,7 +18,14 @@ export class AppComponent{
   }
 
   logout(){
-    this.service.logOutUser();
+    this.service.logOutUser().subscribe(
+      response=>{
+        this.service.setMessage(response.message);
+      },
+      error=>{
+        this.service.setMessage(error.error.error);
+      }
+    );
     
   }
   getIsLoggedIn(){

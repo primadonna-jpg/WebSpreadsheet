@@ -36,25 +36,18 @@ export class LoginComponent implements OnInit {
     this.service.loginUser(formData.username, formData.password).subscribe(
       response => {
         //POWIADOMIENIE
-        this._error = null;
-
-        this._response =Object.values(response)[0];   
-
-
+        this._error = null; 
         this._response =response.message;   //zawartość response.message z DjangoApi
-
-        this._response =Object.values(response)[0]; 
         this.service.setMessage(this._response); //wstrzyknięcie response do shared.service
-
         console.log('Zalogowano pomyślnie', response.message);
         //OBSŁUGA SESJI
         this.service.setLoggedIn(true); 
-        document.cookie = 'isLoggedIn=true; path=/;';//Zapisujemy informację o zalogowanym użytkowniku w Cookies
+        
         //NAWIGACJA
         this.router.navigate(['/register']);
       },
       error => {
-        this._error = Object.values(error.error)[0];  //  zawartość error z DjangoApi
+        this._error = Object.values(error.error);  //  zawartość error z DjangoApi
         this._response = null;
         console.error('Błąd logowania:', error.error);
       }

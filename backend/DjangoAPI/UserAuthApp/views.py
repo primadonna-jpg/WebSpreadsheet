@@ -30,7 +30,7 @@ class UserCreateView(APIView):
                         email=serializer.validated_data['email'],
                         password=hashed_password)
             
-            return Response({'user_id' : user.id}, status=status.HTTP_201_CREATED)
+            return Response({'message' : 'User succesfuly registered'}, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
 
