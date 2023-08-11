@@ -10,13 +10,15 @@ import {SharedService} from './shared.service';
 import {HttpClient, HttpClientModule} from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AlertComponent } from './alert/alert.component';
+import { SpreadsheetListComponent } from './spreadsheet-list/spreadsheet-list.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     RegisterComponent,
-    AlertComponent
+    AlertComponent,
+    SpreadsheetListComponent
   ],
   imports: [
     BrowserModule,

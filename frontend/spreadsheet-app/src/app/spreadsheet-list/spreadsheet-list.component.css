@@ -1,0 +1,33 @@
+
+.name{
+  padding-left: 1rem;
+}
+.table-container{
+  margin: 0 auto;
+  max-width: 80%;
+}
+
+
+.btn-danger {
+    /* font-size: 1.5rem; Rozmiar ikony na przycisku */
+    
+    background-color: #e74c3c;
+  }
+  .list-group {
+    max-width: 70%; 
+    margin: 0 auto; /* Wyśrodkowanie  na stronie */
+  }
+  
+  
+  /* Styl ikony dokumentu na lewym krańcu elementu li */
+
+  
+  
+
+  
+  /* Efekt hover dla przycisku usuwania */
+  .btn-danger:hover {
+    background-color: #e74c3c;
+    color: white;
+  }
+  

@@ -39,7 +39,6 @@ export class SharedService {
     return this.http.post<any>(this.APIUrl + '/auth/login/',data).pipe(
       tap(response => {
         this.setToken(response.access_token);
-        console.log(response.access_token)
       })
     );
   }
@@ -52,14 +51,31 @@ export class SharedService {
   logOutUser():Observable<any>{
     this.setLoggedIn(false);
     const authToken = this.getToken();
-    //const headers = { Authorization: 'Token ' + authToken};
     const headers = new HttpHeaders({
       'Authorization': 'Token ' + authToken,
-    })
+    });
     const options = { headers: headers };
-    console.log(headers,authToken);
     this.setToken('');
     return this.http.post<any>(this.APIUrl + '/auth/logout/',{},options);
+  }
+  //
+  //SPREADSHEET
+  //
+  shpreadsheetList():Observable<any>{
+    const authToken = this.getToken();
+    const headers = new HttpHeaders({
+      'Authorization':'Token '+ authToken,
+    });
+    const options = {headers: headers};
+    return this.http.get<any>(this.APIUrl + '/spreadsheet/list',options);
+  }
+  spreadsheetDelete(id:number):Observable<any>{
+    const authToken = this.getToken();
+    const headers = new HttpHeaders({
+      'Authorization':'Token '+ authToken,
+    });
+    const options = {headers: headers};
+    return this.http.delete<any>(this.APIUrl+'/spreadsheet/delete/'+id, options)
   }
   //
   //ALERT MESSEGES BETWEEN COMPONENTS

@@ -4,4 +4,5 @@ from SpreadsheetApp.views import *
 
 urlpatterns  = [
     path('list/', SpreadsheetList.as_view(), name = 'spreadsheets-list'),
+    path('delete/<int:id>', SpreadsheetDetail.as_view(), name = 'spreadsheet-detail'),
 ]

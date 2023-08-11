@@ -24,4 +24,4 @@ class SpreadsheetSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Spreadsheet
-        fields = ('name', 'author','created','updated','sheets')  
+        fields = '__all__'  

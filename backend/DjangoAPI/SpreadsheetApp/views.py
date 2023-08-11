@@ -9,6 +9,21 @@ from rest_framework.response import Response  #rest_framework defoultowo ma usta
 from rest_framework.views import APIView
 # Create your views here.
 
+class SpreadsheetDetail(APIView):
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    def delete(self,request,id):
+        try:
+            user = request.user
+            spreadsheet = Spreadsheet.objects.get(pk=id, author =user)
+            spreadsheet.delete()
+            return Response({'message': 'Spreadsheet deleted successfully'}, status=status.HTTP_204_NO_CONTENT)
+        except Spreadsheet.DoesNotExist:
+            return Response({'error': 'Spreadsheet not found'}, status=status.HTTP_404_NOT_FOUND)
+        except Exception as e:
+            return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
 class SpreadsheetList(APIView):
     authentication_classes = [TokenAuthentication]
     permission_classes = [IsAuthenticated]

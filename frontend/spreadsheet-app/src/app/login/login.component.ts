@@ -44,7 +44,7 @@ export class LoginComponent implements OnInit {
         this.service.setLoggedIn(true); 
         
         //NAWIGACJA
-        this.router.navigate(['/register']);
+        this.router.navigate(['/spreadsheetList']);
       },
       error => {
         this._error = Object.values(error.error);  //  zawartość error z DjangoApi

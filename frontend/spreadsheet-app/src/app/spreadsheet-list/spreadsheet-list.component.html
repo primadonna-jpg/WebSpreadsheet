@@ -1,0 +1,50 @@
+<div class="container">
+    <div class="table-container align-middle">
+        <div class="d-flex flex-wrap align-middle">
+            <h5 class="font-size-16 me-3">Your Files</h5>
+            <div class="ms-auto">
+                <a  class="fw-medium text-reset" (click)="loadSpreadsheets()">Refresh</a>
+            </div>
+        </div>
+        <table class="table align-middle table-nowrap table-hover mb-0">
+            <thead class="table-light" >
+                <tr>
+                <th scope="col" class="align-middle">Name</th>
+                <th scope="col" class="align-middle" >Date modified</th>
+                <th scope="col" class="align-middle">Created</th>
+                <th class="d-flex justify-content-end">
+                    <button class="btn btn-sm">
+                        <i class="bi bi-file-spreadsheet"></i>
+                        New
+                    </button>
+                </th>
+                </tr>
+            </thead>
+            <tbody *ngFor="let spreadsheet of spreadsheets;trackBy: trackById">
+                <tr >
+                    <td><i class="bi bi-file-spreadsheet-fill text-success"></i><a class="name text-dark align-middle" >{{spreadsheet.name}}</a></td>
+                    <td>{{spreadsheet.updated|date:'dd/MM/yy HH:mm'}}</td>
+                    <td>{{spreadsheet.created|date:'dd/MM/yy HH:mm'}}</td>
+
+                    <td >
+                        <div class="dropdown d-flex justify-content-end">
+                            <a class="font-size-16 text-muted" role="button" data-bs-toggle="dropdown" aria-haspopup="true">
+                                <i class="bi bi-three-dots"></i>
+                            </a>
+                            
+                            <div class="dropdown-menu dropdown-menu-end">
+                                <a class="dropdown-item" >Open</a>
+                                <a class="dropdown-item" >Rename</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" (click)="deleteSpreadsheet(spreadsheet.id)">Delete</a>
+                            </div>
+                        </div>
+                    </td>
+
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
