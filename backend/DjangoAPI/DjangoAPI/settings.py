@@ -51,6 +51,8 @@ REST_FRAMEWORK = {
         #'rest_framework_simplejwt.authentication.JWTAuthentication',
     ],
 }
+TOKEN_EXPIRED_AFTER_SECONDS = 3600  #1h
+
 # SIMPLE_JWT = {
 #     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=60),
 #     'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=1),

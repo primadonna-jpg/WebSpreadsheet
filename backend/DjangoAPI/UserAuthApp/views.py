@@ -1,6 +1,4 @@
 from django.shortcuts import render
-#from django.views.decorators.csrf import csrf_exempt
-#from rest_framework.parsers import JSONParser
 from UserAuthApp.serializers import UserSerializer,LoginSerializer
 from django.contrib.auth.models import User
 from django.contrib.auth.hashers import make_password
@@ -12,13 +10,13 @@ from rest_framework.authentication import SessionAuthentication, BasicAuthentica
 from rest_framework.response import Response  #rest_framework defoultowo ma ustawiony response na json
 from rest_framework.views import APIView
 from rest_framework.authtoken.models import Token
+from django.utils import timezone
+from datetime import datetime, timedelta
 #from rest_framework_simplejwt.tokens import RefreshToken
 
 
-#Błąd(Użytkownicy wprowadzeni z poziomu widoków nie są wstanie być zalogowani)/rozwiązanie:zamiast - 
-#-  user.save() zmienić na User.objects.create()
+
 class UserCreateView(APIView):
-    # bez authentication aby można było sie rejestrować
     
     def post(self,request):
         serializer = UserSerializer(data = request.data)
@@ -45,7 +43,6 @@ class LoginView(APIView):
             user = authenticate(request, username=username, password=password)
 
             if user is not None:
-                #login(request, user)
                 token, _ = Token.objects.get_or_create(user=user)
                 return Response({'access_token': token.key,'message': 'successfully logged in'}, status=status.HTTP_200_OK)
             else:
@@ -70,6 +67,22 @@ class LogOutView(APIView):
         except:
             return Response({'error': 'Something went wrong.'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
+
+class TokenValidationView(APIView):
+    
+    def post(self,request):
+        token_key = request.auth
+        try:
+            token = Token.objects.get(key=token_key)
+            current_time = timezone.now()
+            if token.created + timedelta(seconds=3600) >= current_time:
+                return Response({'valid': True}, status=status.HTTP_200_OK)
+            else:
+                token.delete()
+                return Response({'valid': False}, status=status.HTTP_200_OK)
+        except :
+            return Response({'valid': False}, status=status.HTTP_200_OK)
+        
 
 # class LogOutView(APIView):
 #     authentication_classes = [TokenAuthentication]

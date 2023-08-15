@@ -11,6 +11,7 @@ urlpatterns  = [
     path('register/', UserCreateView.as_view(), name = 'user-create'),
     path('login/', LoginView.as_view(), name='login'),
     path('logout/',LogOutView.as_view(), name='logout'),
+    path('token/validation', TokenValidationView.as_view(),name='token-validation')
     #path('token/', obtain_auth_token, name='token'),
 
     # path('token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),#

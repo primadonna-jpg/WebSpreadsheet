@@ -9,7 +9,7 @@ import {BehaviorSubject, Observable,tap } from 'rxjs'
 })
 export class SharedService {
   constructor(private http:HttpClient) {
-
+    this.checkingLoginStatus();
   }
   readonly APIUrl = 'http://127.0.0.1:8000';
   //
@@ -24,12 +24,34 @@ export class SharedService {
   //
   //Token
   //
-  private authToken!:string ; 
-  setToken(token:string){
-    this.authToken = token;
-  }
-  getToken(){
-    return this.authToken;
+  checkingLoginStatus(){
+    const authToken = localStorage.getItem('authToken');
+    if(authToken){
+      const headers = new HttpHeaders({
+        'Authorization': 'Token ' + authToken,
+      });
+      const options = { headers: headers };
+      this.http.post<any>(this.APIUrl + '/auth/token/validation',{},options).subscribe(
+        response =>{
+          this.setLoggedIn(response.valid);
+          console.log(response.valid);
+          if(response.valid ===false){
+            localStorage.removeItem('authToken');
+            this.setLoggedIn(response.valid);
+          }
+        },
+        error=>{
+          localStorage.removeItem('authToken');
+          this.setLoggedIn(false);
+          console.error(error.error);
+        }
+      )
+      
+    }
+    else{
+      this.setLoggedIn(false);
+      console.log('nie ma')
+    }
   }
   //
   //LOGOWANIE I REJESTRACJA
@@ -38,7 +60,9 @@ export class SharedService {
     const data = {username, password};
     return this.http.post<any>(this.APIUrl + '/auth/login/',data).pipe(
       tap(response => {
-        this.setToken(response.access_token);
+        if (response.access_token) {
+          localStorage.setItem('authToken', response.access_token);
+        }
       })
     );
   }
@@ -50,19 +74,21 @@ export class SharedService {
   
   logOutUser():Observable<any>{
     this.setLoggedIn(false);
-    const authToken = this.getToken();
+    const authToken = localStorage.getItem('authToken');
+    
     const headers = new HttpHeaders({
       'Authorization': 'Token ' + authToken,
     });
     const options = { headers: headers };
-    this.setToken('');
+    localStorage.removeItem('authToken');
     return this.http.post<any>(this.APIUrl + '/auth/logout/',{},options);
+    
   }
   //
   //SPREADSHEET
   //
   shpreadsheetList():Observable<any>{
-    const authToken = this.getToken();
+    const authToken = localStorage.getItem('authToken');
     const headers = new HttpHeaders({
       'Authorization':'Token '+ authToken,
     });
@@ -70,7 +96,7 @@ export class SharedService {
     return this.http.get<any>(this.APIUrl + '/spreadsheet/list',options);
   }
   spreadsheetDelete(id:number):Observable<any>{
-    const authToken = this.getToken();
+    const authToken = localStorage.getItem('authToken');
     const headers = new HttpHeaders({
       'Authorization':'Token '+ authToken,
     });
