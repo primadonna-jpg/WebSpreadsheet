@@ -1,14 +1,17 @@
 import { Component,OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
-import {SharedService} from 'src/app/shared.service';
+import {SharedService} from 'src/app/services/shared.service';
 import { Router } from '@angular/router';
+import { AuthService } from '../services/auth.service';
+import { AlertService } from '../services/alert.service';
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
-  constructor(private formBuilder:FormBuilder,private service:SharedService, private router:Router){}
+  constructor(private formBuilder:FormBuilder, private router:Router,
+    private authService:AuthService, private alertService:AlertService){}
   form!:FormGroup;
   _response:any;
   _error:any;
@@ -33,11 +36,11 @@ export class RegisterComponent implements OnInit {
       this._error  = 'The passwords do not match'
       return ;
     }
-    this.service.createUser(formData.username, formData.password, formData.email).subscribe(
+    this.authService.createUser(formData.username, formData.password, formData.email).subscribe(
       response => {
         this._error = null;
         this._response = response.message;
-        this.service._message = this._response;
+        this.alertService._message = this._response;
 
         this.router.navigate(['/login']);
       },

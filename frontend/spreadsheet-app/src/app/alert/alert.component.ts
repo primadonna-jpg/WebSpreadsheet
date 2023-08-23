@@ -1,13 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { SharedService } from '../shared.service';
-
+import { AlertService } from '../services/alert.service';
 @Component({
   selector: 'app-alert',
   templateUrl: './alert.component.html',
   styleUrls: ['./alert.component.css']
 })
 export class AlertComponent  {
-  constructor(private service:SharedService){}
+  constructor(private service:AlertService){}
   
   showAlert(){
     return this.service.getMessage();

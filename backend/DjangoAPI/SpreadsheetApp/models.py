@@ -17,7 +17,7 @@ class Column(models.Model):
     order = models.PositiveIntegerField()
 
 class Cell(models.Model):
-    sheet = models.ForeignKey(Sheet, on_delete=models.CASCADE, related_name='cells')
+    sheet = models.ForeignKey(Sheet, on_delete=models.CASCADE, related_name='cells')#nie potrzebne ??
     column = models.ForeignKey(Column, on_delete=models.CASCADE, related_name='cells')
     row = models.PositiveIntegerField()
     content = models.TextField()

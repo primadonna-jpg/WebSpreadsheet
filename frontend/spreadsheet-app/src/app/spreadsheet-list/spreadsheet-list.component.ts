@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { SharedService } from '../shared.service';
 import { DatePipe } from '@angular/common';
-
+import { SpreadsheetService } from '../services/spreadsheet.service';
+import { AlertService } from '../services/alert.service';
 @Component({
   selector: 'app-spreadsheet-list',
   templateUrl: './spreadsheet-list.component.html',
@@ -9,17 +9,17 @@ import { DatePipe } from '@angular/common';
 })
 export class SpreadsheetListComponent implements OnInit{
   spreadsheets: any[] = [];
-  constructor(private service:SharedService){}
+  constructor(private spreadsheetService:SpreadsheetService, private alertService:AlertService){}
   ngOnInit(): void {
     this.loadSpreadsheets();
   }
   loadSpreadsheets(){
-    this.service.shpreadsheetList().subscribe(
+    this.spreadsheetService.shpreadsheetList().subscribe(
       response =>{
         this.spreadsheets = response.spreadsheets ;
       },
       error=>{
-        this.service.setMessage(error.error.error);
+        this.alertService.setMessage(error.error.error);
         console.error('Błąd podczas pobierania arkuszy:', error);
       }
     );
@@ -29,7 +29,7 @@ export class SpreadsheetListComponent implements OnInit{
     const confirmed = window.confirm('Are you sure to delete?');
     if (confirmed){
 
-      this.service.spreadsheetDelete(id).subscribe(
+      this.spreadsheetService.deleteSpreadsheet(id).subscribe(
         response=>{
           //this.service._message = response.message;
           console.log("Usunięto")
@@ -39,7 +39,7 @@ export class SpreadsheetListComponent implements OnInit{
           }
         },
         error=>{
-          this.service._message = error.error.error;
+          this.alertService._message = error.error.error;
         }
       )
 

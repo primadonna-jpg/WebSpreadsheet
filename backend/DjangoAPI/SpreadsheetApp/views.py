@@ -36,3 +36,28 @@ class SpreadsheetList(APIView):
             return Response({'message': 'success', 'spreadsheets': serializer.data})
         except Exception as e:
             return Response({'error':str(e)}, status=500)
+        
+class CreateSpreadsheet(APIView):
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    def post(self,request):
+        user = request.user
+        data = request.data
+
+        # Tworzenie arkusza
+        spreadsheet = Spreadsheet.objects.create(name=data['spreadsheet_name'], author=user)
+
+        # Tworzenie arkuszy w arkuszu
+        for sheet_data in data['sheets']:
+            sheet = Sheet.objects.create(spreadsheet=spreadsheet, name=sheet_data['name'])
+
+            # Tworzenie kolumn w arkuszu
+            for column_order, column_data in enumerate(sheet_data['columns']):
+                column = Column.objects.create(sheet=sheet, name=column_data['name'], order=column_order)
+
+                # Tworzenie komórek w kolumnach
+                for row_order, cell_data in enumerate(column_data['cells']):
+                    Cell.objects.create(sheet=sheet, column=column, row=row_order, content=cell_data['content'])
+
+        return Response({'message': 'Arkusz zapisany'}, status=200)

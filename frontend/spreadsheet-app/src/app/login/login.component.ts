@@ -1,8 +1,8 @@
 import { Component, OnInit,  } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
-import {SharedService} from 'src/app/shared.service';
-
+import { AuthService } from '../services/auth.service';
+import { AlertService } from '../services/alert.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -11,8 +11,8 @@ import {SharedService} from 'src/app/shared.service';
 export class LoginComponent implements OnInit {
   
   form!:FormGroup ;
-  constructor(private formBuilder:FormBuilder,private service:SharedService,
-    private router: Router,
+  constructor(private formBuilder:FormBuilder,private router: Router,
+    private alertService:AlertService, private authService:AuthService
     ){}
   _response:any;
   _error:any;
@@ -33,15 +33,15 @@ export class LoginComponent implements OnInit {
       return;
     }
     const formData = this.form.value;
-    this.service.loginUser(formData.username, formData.password).subscribe(
+    this.authService.loginUser(formData.username, formData.password).subscribe(
       response => {
         //POWIADOMIENIE
         this._error = null; 
         this._response =response.message;   //zawartość response.message z DjangoApi
-        this.service.setMessage(this._response); //wstrzyknięcie response do shared.service
+        this.alertService.setMessage(this._response); //wstrzyknięcie response do shared.service
         console.log('Zalogowano pomyślnie', response.message);
         //OBSŁUGA SESJI
-        this.service.setLoggedIn(true); 
+        this.authService.setLoggedIn(true); 
         
         //NAWIGACJA
         this.router.navigate(['/spreadsheetList']);

@@ -6,11 +6,12 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 
-import {SharedService} from './shared.service';
-import {HttpClient, HttpClientModule} from '@angular/common/http';
+import {SharedService} from './services/shared.service';
+import {HttpClientModule} from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AlertComponent } from './alert/alert.component';
 import { SpreadsheetListComponent } from './spreadsheet-list/spreadsheet-list.component';
+import { SpreadsheetComponent } from './spreadsheet/spreadsheet.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { SpreadsheetListComponent } from './spreadsheet-list/spreadsheet-list.co
     LoginComponent,
     RegisterComponent,
     AlertComponent,
-    SpreadsheetListComponent
+    SpreadsheetListComponent,
+    SpreadsheetComponent
   ],
   imports: [
     BrowserModule,
