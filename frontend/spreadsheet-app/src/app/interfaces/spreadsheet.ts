@@ -6,19 +6,17 @@ export interface SpreadsheetData {
   
 
 export interface SheetData {
-name: string;
-columns: Column[];
+    name: string;
+    rows: Row[];
+    
 }
 
 
-export interface Column {
-    name: string;
-    //order:number;
-    cells: Cell[];
+export interface Row {
+    cells:Cell[];
 }
 
 
 export interface Cell {
-row: number;
-content: string;
+    content: any;
 }

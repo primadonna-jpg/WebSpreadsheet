@@ -37,7 +37,24 @@ export class SpreadsheetService {
     const options = {headers: headers};
     return this.http.post<any>(this.APIUrl+'/spreadsheet/create/',spreadsheetData,options);
   }
-
+  //GET SPREADSHEET//
+  getSpreadsheet(id:number):Observable<any>{
+    const authToken = localStorage.getItem('authToken');
+    const headers = new HttpHeaders({
+      'Authorization':'Token '+ authToken,
+    });
+    const options = {headers: headers};
+    return this.http.get<any>(this.APIUrl+'/spreadsheet/get/'+id,options);
+  }
+  // UPDATE SPREADSHEET//
+  updateSpreadsheet(spreadsheetData:SpreadsheetData, id:number){
+    const authToken = localStorage.getItem('authToken');
+    const headers = new HttpHeaders({
+      'Authorization':'Token '+ authToken,
+    });
+    const options = {headers: headers};
+    return this.http.put<any>(this.APIUrl+'/spreadsheet/update/'+id,spreadsheetData,options);
+  }
 
 
 

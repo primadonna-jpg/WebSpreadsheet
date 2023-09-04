@@ -12,6 +12,10 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { AlertComponent } from './alert/alert.component';
 import { SpreadsheetListComponent } from './spreadsheet-list/spreadsheet-list.component';
 import { SpreadsheetComponent } from './spreadsheet/spreadsheet.component';
+import { HotTableModule } from '@handsontable/angular';
+import { registerAllModules } from 'handsontable/registry';
+
+registerAllModules();
 
 @NgModule({
   declarations: [
@@ -26,7 +30,8 @@ import { SpreadsheetComponent } from './spreadsheet/spreadsheet.component';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HotTableModule,
     
   ],
   providers: [SharedService],
