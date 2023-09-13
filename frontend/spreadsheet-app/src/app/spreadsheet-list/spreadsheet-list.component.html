@@ -21,8 +21,9 @@
                 </tr>
             </thead>
             <tbody *ngFor="let spreadsheet of spreadsheets;trackBy: trackById">
-                <tr >
-                    <td><i class="bi bi-file-spreadsheet-fill text-success"></i><a class="name text-dark align-middle" >{{spreadsheet.name}}</a></td>
+                <tr>
+                    <td><i class="bi bi-file-spreadsheet-fill text-success"></i><a class="name text-dark align-middle"
+                        [routerLink]="['/spreadsheet', spreadsheet.id]" >{{spreadsheet.name}}</a></td>
                     <td>{{spreadsheet.updated|date:'dd/MM/yy HH:mm'}}</td>
                     <td>{{spreadsheet.created|date:'dd/MM/yy HH:mm'}}</td>
 

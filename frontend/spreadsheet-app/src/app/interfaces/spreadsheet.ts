@@ -1,13 +1,14 @@
 
 export interface SpreadsheetData {
+    
     spreadsheet_name: string;
-    sheets: SheetData[];
+    sheets: Sheet[];
 }
   
 
-export interface SheetData {
+export interface Sheet {
     name: string;
-    rows: Row[];
+    sheetData:any[][];
     
 }
 

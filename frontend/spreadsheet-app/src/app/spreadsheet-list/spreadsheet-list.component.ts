@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { DatePipe } from '@angular/common';
+
 import { SpreadsheetService } from '../services/spreadsheet.service';
 import { AlertService } from '../services/alert.service';
 @Component({
@@ -14,7 +14,7 @@ export class SpreadsheetListComponent implements OnInit{
     this.loadSpreadsheets();
   }
   loadSpreadsheets(){
-    this.spreadsheetService.shpreadsheetList().subscribe(
+    this.spreadsheetService.spreadsheetList().subscribe(
       response =>{
         this.spreadsheets = response.spreadsheets ;
       },

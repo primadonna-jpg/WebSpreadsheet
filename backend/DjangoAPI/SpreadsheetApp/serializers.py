@@ -1,19 +1,21 @@
 from rest_framework import serializers
-from .models import Spreadsheet,Sheet,Column,Cell
+from .models import *
 
 class CellSerializer(serializers.ModelSerializer):
     class Meta:
       model = Cell
       fields = '__all__'
 
-class ColumnSerializer(serializers.ModelSerializer):
-   cells = CellSerializer(many =True, read_only = True)
-   class Meta:
-      model = Column
-      fields = '__all__'
+
+class RowSerializer(serializers.ModelSerializer):
+    cells = CellSerializer(many=True, read_only=True)
+
+    class Meta:
+        model = Row
+        fields = '__all__'  
 
 class SheetSerializer(serializers.ModelSerializer):
-    columns = ColumnSerializer(many=True, read_only=True)
+    rows = RowSerializer(many=True, read_only=True)
 
     class Meta:
         model = Sheet

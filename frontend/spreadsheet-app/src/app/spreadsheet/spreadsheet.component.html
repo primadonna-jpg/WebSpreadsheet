@@ -1,6 +1,32 @@
 
 <div class="handsontable-container" >
     <hot-table [settings]="hotSettings" [hotId]="id"></hot-table>
-    <button >swap</button>
-</div>
+    <div class="sheet-buttons">
+      <ul class="nav nav-tabs">
+        <li class="nav-link active"
+        *ngFor="let sheet of spreadsheetData?.sheets; let i = index" (click)="switchSheet(i)"
+        [class.active]="i === activeSheetIndex"
+        (contextmenu)="showContextMenu($event,i)"
+        >
+          {{ sheet?.name }}
+          
+        </li>
+        <li class="nav-link " (click)="addSheet()"><i class="bi bi-plus-circle"></i></li>
+      </ul>
+      <!-- <button class="btn btn-primary" (click)="saveSheetData()">Save</button> -->
+      <button class="btn btn-primary" (click)=" updateSpreadsheet()">Save</button>
+    </div>
+  </div>
+
+  <div class="context-menu" [style.display]="contextMenuVisible ? 'block' : 'none'" (mouseleave)="hideContextMenu()">
+    <ul>
+      <li (click)="deleteSheet()">Delete</li>
+    </ul>
+  </div>
+<!-- <div #hotContainer>
+  
+  <button class="btn btn-primary" (click)="saveData()">Save</button>
+</div> -->
+
+
 

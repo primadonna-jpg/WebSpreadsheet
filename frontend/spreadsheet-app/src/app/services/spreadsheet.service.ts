@@ -10,7 +10,7 @@ export class SpreadsheetService {
   readonly APIUrl = 'http://127.0.0.1:8000';
   constructor(private http:HttpClient) { }
   //LIST//
-  shpreadsheetList():Observable<any>{
+  spreadsheetList():Observable<any>{
     const authToken = localStorage.getItem('authToken');
     const headers = new HttpHeaders({
       'Authorization':'Token '+ authToken,

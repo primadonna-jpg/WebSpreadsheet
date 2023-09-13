@@ -47,14 +47,22 @@ class CreateSpreadsheet(APIView):
 
         spreadsheet = Spreadsheet.objects.create(name=data['spreadsheet_name'], author=user)
 
-        for sheet_data in data['sheets']:
-            sheet = Sheet.objects.create(spreadsheet=spreadsheet, name=sheet_data['name'])
+        for sheet_obj in data['sheets']:
+            sheet = Sheet.objects.create(spreadsheet=spreadsheet, name=sheet_obj['name'])
    
-            for column_order, column_data in enumerate(sheet_data['columns']):
-                column = Column.objects.create(sheet=sheet, name=column_data['name'], order=column_order)
+            for row_order, row_obj in enumerate(sheet_obj['sheetData']):
+                row = Row.objects.create(sheet=sheet,  order=row_order)
 
-                for row_order, cell_data in enumerate(column_data['cells']):
-                    Cell.objects.create(sheet=sheet, column=column, row=row_order, content=cell_data['content'])
+                for cell in row_obj:
+                    if cell is None:
+                        cell = ""
+
+                    try:
+                        Cell.objects.create(sheet=sheet, row=row, content=cell)
+                    except KeyError as e:
+                        return Response({'error': 'INTERNAL SERVER ERROR'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+                        print(f"Błąd IntegrityError: {e}")
+                       
 
         return Response({'message': 'Spreadsheet created'}, status=status.HTTP_201_CREATED)
     
@@ -74,39 +82,31 @@ class UpdateSpreadsheet(APIView):
     authentication_classes = [TokenAuthentication]
     permission_classes = [IsAuthenticated]
 
-    def put(self, request, id):
+
+    def put(self, request,id):
         user = request.user
         data = request.data
-
+        #spreadsheet_name = data['spreadsheet_name']
         try:
             spreadsheet = Spreadsheet.objects.get(pk=id, author=user)
         except Spreadsheet.DoesNotExist:
             return Response({'error': 'Spreadsheet not found'}, status=status.HTTP_404_NOT_FOUND)
-       
-        if 'spreadsheet_name' in data:
-            spreadsheet.name = data['spreadsheet_name']
-            spreadsheet.save()
-        
-        for sheet_data in data['sheets']:
-            try:
-                sheet = Sheet.objects.get(spreadsheet=spreadsheet, name=sheet_data['name'])
-            except Sheet.DoesNotExist:
-                return Response({'error': f'Sheet "{sheet_data["name"]}" not found'}, status=status.HTTP_404_NOT_FOUND)
-            
-            for column_data in sheet_data['columns']:
-                try:
-                    column = Column.objects.get(sheet=sheet, name=column_data['name'], order= column_data['order'])
-                except Column.DoesNotExist:
-                    return Response({'error': f'Column "{column_data["name"]}" not found'}, status=status.HTTP_404_NOT_FOUND)
-                
-                for cell_data in  column_data['cells']:
-                    try:
-                        cell = Cell.objects.get(sheet=sheet, column=column, row=cell_data['row'])
-                        cell.content = cell_data['content']
-                        cell.save()
-                    except Cell.DoesNotExist:
-                        return Response({'error': f'Cell at row {cell_data["row"]} not found'}, status=status.HTTP_404_NOT_FOUND)
 
-        return Response({'message': 'Spreadsheet updated'}, status=status.HTTP_200_OK)
+        spreadsheet.sheets.all().delete()
+
+        for sheet_obj in data['sheets']:
+            sheet_name = sheet_obj['name']
+            sheet = Sheet.objects.create(spreadsheet=spreadsheet, name=sheet_name)
+
+            for row_order, row_obj in enumerate(sheet_obj['sheetData']):
+                row = Row.objects.create(sheet=sheet, order=row_order)
+
+                for cell_content in row_obj:
+                    if cell_content is None:
+                        cell_content = ""
+
+                    Cell.objects.create(sheet=sheet, row=row, content=cell_content)
+
+        return Response({'message': 'Spreadsheet created or updated'}, status=status.HTTP_200_OK)
 
         
