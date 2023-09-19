@@ -64,7 +64,7 @@ class CreateSpreadsheet(APIView):
                         print(f"Błąd IntegrityError: {e}")
                        
 
-        return Response({'message': 'Spreadsheet created'}, status=status.HTTP_201_CREATED)
+        return Response({'message': 'Spreadsheet created','spreadsheet_id':spreadsheet.id}, status=status.HTTP_201_CREATED)
     
 class GetSpreadsheet(APIView):
     authentication_classes = [TokenAuthentication]
@@ -91,6 +91,10 @@ class UpdateSpreadsheet(APIView):
             spreadsheet = Spreadsheet.objects.get(pk=id, author=user)
         except Spreadsheet.DoesNotExist:
             return Response({'error': 'Spreadsheet not found'}, status=status.HTTP_404_NOT_FOUND)
+
+        if data['spreadsheet_name']:
+            spreadsheet.name = data['spreadsheet_name']
+            spreadsheet.save()
 
         spreadsheet.sheets.all().delete()
 

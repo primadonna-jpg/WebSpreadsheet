@@ -8,7 +8,7 @@ import { RegisterComponent } from './register/register.component';
 
 import {SharedService} from './services/shared.service';
 import {HttpClientModule} from '@angular/common/http';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AlertComponent } from './alert/alert.component';
 import { SpreadsheetListComponent } from './spreadsheet-list/spreadsheet-list.component';
 import { SpreadsheetComponent } from './spreadsheet/spreadsheet.component';
@@ -32,7 +32,7 @@ registerAllModules();
     HttpClientModule,
     ReactiveFormsModule,
     HotTableModule,
-    
+    FormsModule
   ],
   providers: [SharedService],
   bootstrap: [AppComponent]

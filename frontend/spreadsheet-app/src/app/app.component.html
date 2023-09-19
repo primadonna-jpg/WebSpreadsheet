@@ -15,7 +15,7 @@
     <ng-container *ngIf="getIsLoggedIn(); else notLoggedIn">
       <!-- Elementy do pokazania, gdy użytkownik jest zalogowany -->
       
-      <button class="btn btn-outline-success my-2 my-sm-0" (click)="logout()">Logout</button>
+      <button class="btn btn-outline-success my-2 my-sm-0" (click)="logout()" routerLink="/login">Logout</button>
     </ng-container>
   
     <ng-template #notLoggedIn>

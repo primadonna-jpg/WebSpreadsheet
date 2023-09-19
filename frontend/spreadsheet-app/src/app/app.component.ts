@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { SharedService } from './services/shared.service';
+import { AlertService } from './services/alert.service';
+import { AuthService } from './services/auth.service';
 import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-root',
@@ -11,19 +12,19 @@ export class AppComponent{
   private isLoggedIn:boolean = false;
   private isLoggedInSubscription: Subscription;
   private _response:any;
-  constructor(private service:SharedService){
-    this.isLoggedInSubscription = this.service.isLoggedIn$.subscribe(isLoggedIn=>{
+  constructor( private authService:AuthService, private alertService:AlertService){
+    this.isLoggedInSubscription = this.authService.isLoggedIn$.subscribe(isLoggedIn=>{
       this.isLoggedIn = isLoggedIn;
     });
   }
 
   logout(){
-    this.service.logOutUser().subscribe(
+    this.authService.logOutUser().subscribe(
       response=>{
-        this.service.setMessage(response.message);
+        this.alertService.setMessage(response.message);
       },
       error=>{
-        this.service.setMessage(error.error.error);
+        this.alertService.setMessage(error.error.error);
       }
     );
     

@@ -12,6 +12,7 @@ const routes: Routes = [
   {path: 'alert', component:AlertComponent},
   {path: 'spreadsheetList', component:SpreadsheetListComponent},
   {path: 'spreadsheet/:id', component:SpreadsheetComponent},
+  {path: 'spreadsheet', component:SpreadsheetComponent},
 
 ];
 
