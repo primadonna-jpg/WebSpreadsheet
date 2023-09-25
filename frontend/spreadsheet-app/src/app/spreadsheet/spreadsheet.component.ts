@@ -1,10 +1,12 @@
-import { Component, OnInit, AfterViewInit, ViewChild, } from '@angular/core';
+import { Component, OnInit, AfterViewInit,  } from '@angular/core';
 import { SpreadsheetData, Sheet } from '../interfaces/spreadsheet';
 import { SpreadsheetService } from '../services/spreadsheet.service';
 import Handsontable from 'handsontable/base';
 import { HotTableRegisterer } from '@handsontable/angular';
 import { ActivatedRoute } from '@angular/router';
 import { HyperFormula } from 'hyperformula';
+import * as XLSX from 'xlsx';
+
 
 @Component({
   selector: 'app-spreadsheet',
@@ -43,13 +45,11 @@ export class SpreadsheetComponent implements AfterViewInit,OnInit {
 
   ///HYPER FORMULA//////
    hyperformulaInstance = HyperFormula.buildEmpty({
-     // to use an external HyperFormula instance,
-     // initialize it with the `'internal-use-in-handsontable'` license key
      licenseKey: 'internal-use-in-handsontable',
    });
   ///Handsontable instance settings////
   private hotRegisterer = new HotTableRegisterer();
-  id = 'hotInstance';
+  instanceId = 'hotInstance';
   hotSettings: Handsontable.GridSettings = {
     //data:this.data,
     rowHeaders:true,
@@ -65,7 +65,12 @@ export class SpreadsheetComponent implements AfterViewInit,OnInit {
     formulas: {
       engine: this.hyperformulaInstance,
     },
+  
+
   };
+////
+// Ustawienie obsługi zdarzenia dla Handsontable
+
 
   
 ////
@@ -91,7 +96,7 @@ export class SpreadsheetComponent implements AfterViewInit,OnInit {
   }
   
   loadSheetData(data:any) {
-    this.hotRegisterer.getInstance(this.id).loadData(data);
+    this.hotRegisterer.getInstance(this.instanceId).loadData(data);
   }
   switchSheet(sheetIndex:number){
 
@@ -100,7 +105,7 @@ export class SpreadsheetComponent implements AfterViewInit,OnInit {
     this.loadSheetData(this.spreadsheetData?.sheets[this.activeSheetIndex].sheetData);
   }
   // saveSheetData(){
-  //   const instance = this.hotRegisterer.getInstance(this.id);
+  //   const instance = this.hotRegisterer.getInstance(this.instanceId);
   //   const newData = instance.getData();
   //   if (instance){
 
@@ -113,6 +118,18 @@ export class SpreadsheetComponent implements AfterViewInit,OnInit {
   //   }
 
   // }
+
+  ////EXPORT TO XLSX///////
+  exportToXLSX() {
+    if(this.spreadsheetData){
+      const wb:XLSX.WorkBook = XLSX.utils.book_new(); //WorkBook
+      for(const sheet of this.spreadsheetData.sheets){
+        const ws:XLSX.WorkSheet = XLSX.utils.aoa_to_sheet(sheet.sheetData);
+        XLSX.utils.book_append_sheet(wb, ws, sheet.name);   //append sheet to workbook
+      }
+      XLSX.writeFile(wb, `${this.spreadsheetData.spreadsheet_name}.xlsx`);
+    }
+  }
 
   getSpreadsheet(id:number){
     
@@ -200,10 +217,17 @@ export class SpreadsheetComponent implements AfterViewInit,OnInit {
     
   }
   
+  ///////////MODAL////////////
+  isModalVisible: boolean = false;
 
-  
-  ///////////////////
+  openModal() {
+    this.isModalVisible = true;
+  }
 
+  closeModal() {
+    this.isModalVisible = false;
+  }
+  ////////////////////
 
   createSpreadsheet(){
     if(this.spreadsheetData){
@@ -226,11 +250,13 @@ export class SpreadsheetComponent implements AfterViewInit,OnInit {
 
 
   updateSpreadsheet(){
+    this.openModal();
     if (this.spreadsheetData && this.spreadsheetId){
 
       this.spreadsheetService.updateSpreadsheet(this.spreadsheetData,this.spreadsheetId).subscribe(
         response=>{
           console.log('updated');
+          this.closeModal();
         },
         error=>{
           console.error(error.error);

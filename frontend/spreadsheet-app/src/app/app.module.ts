@@ -14,6 +14,7 @@ import { SpreadsheetListComponent } from './spreadsheet-list/spreadsheet-list.co
 import { SpreadsheetComponent } from './spreadsheet/spreadsheet.component';
 import { HotTableModule } from '@handsontable/angular';
 import { registerAllModules } from 'handsontable/registry';
+import { ModalComponent } from './modal/modal.component';
 
 registerAllModules();
 
@@ -24,7 +25,8 @@ registerAllModules();
     RegisterComponent,
     AlertComponent,
     SpreadsheetListComponent,
-    SpreadsheetComponent
+    SpreadsheetComponent,
+    ModalComponent
   ],
   imports: [
     BrowserModule,

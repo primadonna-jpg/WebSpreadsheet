@@ -1,3 +1,4 @@
+<app-modal *ngIf="isModalVisible"></app-modal>
 
 <div class="handsontable-container" >
   <div class="name-box d-flex" >
@@ -5,7 +6,7 @@
     <i class="bi bi-pencil-square"></i>
   </div>
   <input *ngIf="isEditingName && spreadsheetData" [(ngModel)]="spreadsheetData.spreadsheet_name" (blur)="stopEditingName()" class="spreadsheet-name-input" />
-    <hot-table [settings]="hotSettings" [hotId]="id"></hot-table>
+    <hot-table [settings]="hotSettings" [hotId]="instanceId"></hot-table>
     <div class="sheet-buttons">
       <ul class="nav nav-tabs">
         <li class="nav-link active"
@@ -21,6 +22,7 @@
       <!-- <button  class="btn btn-primary" (click)=" updateSpreadsheet()">Save</button> -->
       <button *ngIf="spreadsheetExist" class="btn btn-primary" (click)=" updateSpreadsheet()">Save</button>
       <button *ngIf="!spreadsheetExist" class="btn btn-primary" (click)="createSpreadsheet()" >Create</button>
+      <button class="btn btn-primary" (click)="exportToXLSX()">Export</button>
     </div>
   </div> 
 
