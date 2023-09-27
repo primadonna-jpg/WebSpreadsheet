@@ -6,25 +6,36 @@
     <i class="bi bi-pencil-square"></i>
   </div>
   <input *ngIf="isEditingName && spreadsheetData" [(ngModel)]="spreadsheetData.spreadsheet_name" (blur)="stopEditingName()" class="spreadsheet-name-input" />
-    <hot-table [settings]="hotSettings" [hotId]="instanceId"></hot-table>
-    <div class="sheet-buttons">
-      <ul class="nav nav-tabs">
-        <li class="nav-link active"
+  <hot-table [settings]="hotSettings" [hotId]="instanceId"></hot-table>
+  <div class="sheet-buttons">
+    <ul class="nav nav-tabs">
+      <li class="nav-link active"
         *ngFor="let sheet of spreadsheetData?.sheets; let i = index" (click)="switchSheet(i)"
         [class.active]="i === activeSheetIndex"
         (contextmenu)="showContextMenu($event,i)">
-          {{ sheet?.name }}
-          
-        </li>
-        <li class="nav-link " (click)="addSheet()"><i class="bi bi-plus-circle"></i></li>
-      </ul>
-      <!-- <button class="btn btn-primary" (click)="saveSheetData()">Save</button> -->
-      <!-- <button  class="btn btn-primary" (click)=" updateSpreadsheet()">Save</button> -->
-      <button *ngIf="spreadsheetExist" class="btn btn-primary" (click)=" updateSpreadsheet()">Save</button>
-      <button *ngIf="!spreadsheetExist" class="btn btn-primary" (click)="createSpreadsheet()" >Create</button>
-      <button class="btn btn-primary" (click)="exportToXLSX()">Export</button>
-    </div>
-  </div> 
+          {{ sheet?.name }} 
+      </li>
+      <li class="nav-link " (click)="addSheet()"><i class="bi bi-plus-circle"></i></li>
+    </ul>
+  </div>
+</div> 
+
+<div class="dropdown d-flex justify-content-end">
+  <a class="font-size-16 text-muted" role="button" data-bs-toggle="dropdown" aria-haspopup="true">
+      <i class="bi bi-three-dots"></i>
+  </a>
+  
+  <div class="dropdown-menu dropdown-menu-end">
+      <a *ngIf="spreadsheetExist" class="dropdown-item" (click)=" updateSpreadsheet()">Save</a>
+      <a *ngIf="!spreadsheetExist" class="dropdown-item" (click)="createSpreadsheet()" >Create</a>
+      <div class="dropdown-divider"></div>
+      <a class="dropdown-item" (click)="exportToXLSX()">Export</a>
+      <div class="dropdown-divider"></div>
+      <input *ngIf="!spreadsheetExist" class="dropdown-item" type="file" (change)="importXLSX($event)"
+        accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"/>
+  </div>
+</div>
+  
 
   <div class="context-menu" [style.display]="contextMenuVisible ? 'block' : 'none'" (mouseleave)="hideContextMenu()">
     <ul>
@@ -47,3 +58,31 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid justify-content-start gap-3">
+    <li *ngIf="spreadsheetExist" class="btn btn-outline-success " (click)=" updateSpreadsheet()">Save</li>
+    <li *ngIf="!spreadsheetExist" class="btn btn-outline-success" (click)="createSpreadsheet()" >Create</li>
+    <li class="btn btn-outline-success" (click)="exportToXLSX()">Export</li>
+    <div class="input_group" *ngIf="!spreadsheetExist">
+      <input class="custom-file-input" type="file" (change)="importXLSX($event)"
+      accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"/>
+      <label class="custom-file-label" for="inputGroupFile">Choose file</label>
+    </div>
+
+  </div>
+  
+</nav> -->

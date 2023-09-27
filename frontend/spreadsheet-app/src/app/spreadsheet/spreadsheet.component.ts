@@ -97,6 +97,7 @@ export class SpreadsheetComponent implements AfterViewInit,OnInit {
   
   loadSheetData(data:any) {
     this.hotRegisterer.getInstance(this.instanceId).loadData(data);
+    console.log(data);
   }
   switchSheet(sheetIndex:number){
 
@@ -131,6 +132,37 @@ export class SpreadsheetComponent implements AfterViewInit,OnInit {
     }
   }
 
+  importXLSX($event:any){
+    const files = $event.target.files;
+    if(files.length){
+      const file = files[0];
+      const reader = new FileReader();
+      reader.readAsBinaryString(file);
+
+      reader.onload = (event:any) => {
+        const data = event.target.result;
+        const wb = XLSX.read(data, { type: 'binary' });
+        const sheetNames = wb.SheetNames;
+
+        if (sheetNames.length) {
+          this.spreadsheetData?.sheets.splice(0);
+          for(const name of sheetNames){
+            const rowsJason = XLSX.utils.sheet_to_json<string[]>(wb.Sheets[name], { header: 1 });
+            //const dataArray = [rowsJason.map((row) => row.map((value) => String(value)))];
+            const dataArray = rowsJason.map((row) => row.map((value) => String(value)));
+            const sheet:Sheet = {name:name, sheetData:dataArray};
+            
+            console.log(dataArray);
+            this.spreadsheetData?.sheets.push(sheet);
+          }
+          this.loadSheetData(this.spreadsheetData?.sheets[0].sheetData);
+          console.log(this.spreadsheetData);
+        }
+      }
+    }
+
+  }
+  ///////////////
   getSpreadsheet(id:number){
     
     this.spreadsheetService.getSpreadsheet(id).subscribe(
