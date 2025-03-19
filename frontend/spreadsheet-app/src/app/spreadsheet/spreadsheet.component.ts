@@ -263,8 +263,10 @@ export class SpreadsheetComponent implements AfterViewInit,OnInit {
 
   createSpreadsheet(){
     if(this.spreadsheetData){
+      this.openModal();
       this.spreadsheetService.createSpreadsheet(this.spreadsheetData).subscribe(
         response =>{
+          this.closeModal();
           console.log("created spreadsheet id: "+response.spreadsheet_id);
           this.spreadsheetId = response.spreadsheet_id;
           this.spreadsheetExist = true;
